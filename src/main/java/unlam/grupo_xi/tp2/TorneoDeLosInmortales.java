@@ -1,10 +1,10 @@
 package unlam.grupo_xi.tp2;
 
-import java.util.List;
-
 public final class TorneoDeLosInmortales {
+    public static int SIGUIENTE_ID = 1;
 
     public static void main(String[] args) {
+
         /*// Escuela = configuración: técnicas y equipamiento iniciales.
         Escuela escuelaDeLaEspada = new Escuela(
                 "Escuela de la Espada Celestial",
