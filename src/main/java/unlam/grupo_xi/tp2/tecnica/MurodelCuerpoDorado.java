@@ -8,12 +8,17 @@ public class MurodelCuerpoDorado implements Tecnica{
 	
 	@Override
 	public String getNombre() {
-		return "Muro del Cuerpo Doardo";
+		return "Muro del Cuerpo Dorado";
 	}
 
 	@Override
 	public int getCosto() {
 		return COSTO_BASE;
+	}
+
+	@Override
+	public boolean esDefensiva() {
+		return true;
 	}
 
 	@Override

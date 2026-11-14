@@ -17,6 +17,11 @@ public class MeditacionDelInmortal implements Tecnica{
 	}
 
 	@Override
+	public boolean esCuracion() {
+		return true;
+	}
+
+	@Override
 	public void ejecutar(Combatiente ejecutor, Combatiente objetivo) {
 		ejecutor.recuperarVida(VIDA_RECUPERADA);
 	}

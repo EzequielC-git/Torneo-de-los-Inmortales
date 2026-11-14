@@ -2,6 +2,7 @@ package unlam.grupo_xi.tp2.combatiente;
 
 import unlam.grupo_xi.tp2.equipamiento.CategoriaEquipamiento;
 import unlam.grupo_xi.tp2.equipamiento.Equipamiento;
+import unlam.grupo_xi.tp2.pareja.Pareja;
 import unlam.grupo_xi.tp2.tecnica.Tecnica;
 import java.util.*;
 
@@ -191,6 +192,107 @@ public abstract class Combatiente {
 
     public List<Tecnica> getTecnicas() {
         return new ArrayList<>(usosTecnicas.keySet());
+    }
+
+
+
+    // Acciones de Combate y Toma de Decisiones
+    // —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+    public void restaurarAlMaximo() {
+        restablecerParaNuevoCombate();
+    }
+
+    public boolean tieneDefensaActiva() {
+        return this.reduccionMuro > 0;
+    }
+
+    public void reiniciarDefensa() {
+        this.reduccionMuro = 0;
+    }
+
+    public void recuperarEnergiaPorAsalto(int energia) {
+        recuperarEnergia(energia);
+    }
+
+    public Combatiente elegirObjetivo(List<Combatiente> rivales) {
+        if (rivales == null || rivales.isEmpty()) {
+            return null;
+        }
+        return rivales.stream()
+                .filter(Combatiente::estaEnPie)
+                .min(Comparator.comparingInt(Combatiente::getVidaActual)
+                        .thenComparingInt(Combatiente::getId))
+                .orElse(null);
+    }
+
+    public void realizarAtaqueBasico(Combatiente objetivo) {
+        if (objetivo == null || !objetivo.estaEnPie() || !this.estaEnPie()) {
+            return;
+        }
+        int danioBase = 10;
+        int danioTotal = calcularDanioProducido(danioBase);
+        objetivo.recibirDanio(danioTotal);
+    }
+
+    public Tecnica decidirAccion() {
+        return decidirAccion(null);
+    }
+
+    public Tecnica decidirAccion(Pareja miPareja) {
+        if (!estaEnPie()) {
+            return null;
+        }
+
+        List<Tecnica> disponibles = new ArrayList<>(getTecnicas());
+
+        // 1. Técnica de recuperación si le falta vida
+        if (this.vidaActual < this.vidaMaxima) {
+            for (Tecnica t : disponibles) {
+                if (t.esCuracion() && puedeEjecutarTecnica(t, miPareja)) {
+                    return t;
+                }
+            }
+        }
+
+        // 2. Técnica defensiva si no tiene una activa
+        if (!tieneDefensaActiva()) {
+            for (Tecnica t : disponibles) {
+                if (t.esDefensiva() && puedeEjecutarTecnica(t, miPareja)) {
+                    return t;
+                }
+            }
+        }
+
+        // 3. Técnica ofensiva con más usos restantes (en empate, la primera en orden de lista)
+        Tecnica mejorOfensiva = null;
+        int maxUsos = -1;
+
+        for (Tecnica t : disponibles) {
+            if (t.esOfensiva() && puedeEjecutarTecnica(t, miPareja)) {
+                int usos = getUsosRestantes(t);
+                if (usos > maxUsos) {
+                    maxUsos = usos;
+                    mejorOfensiva = t;
+                }
+            }
+        }
+
+        // 4. Si ninguna técnica es posible (falta energía, usos o regla compañero), ataque básico (null)
+        return mejorOfensiva;
+    }
+
+    public boolean puedeEjecutarTecnica(Tecnica t, Pareja miPareja) {
+        if (t == null || !tieneUsosRestantes(t)) {
+            return false;
+        }
+        int costoFinal = calcularGastoEnergia(t.getCosto());
+        if (this.energiaActual < costoFinal) {
+            return false;
+        }
+        if (miPareja != null && !miPareja.puedeUsarTecnica(t, this)) {
+            return false;
+        }
+        return true;
     }
 
 
