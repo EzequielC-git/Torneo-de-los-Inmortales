@@ -18,6 +18,8 @@ public abstract class Combatiente {
 
     private int vidaMaxima, vidaActual;
     private int energiaMaxima, energiaActual;
+    
+    private double reduccionMuro;
 
     private final Map<CategoriaEquipamiento, Equipamiento> equipamientos;
     private final Map<Tecnica, Integer> usosTecnicas;
@@ -36,11 +38,18 @@ public abstract class Combatiente {
     public abstract int calcularDanioProducido(int danioBase);
     public abstract int calcularDanioRecibido(int danioEntrante);
     public abstract int calcularGastoEnergia(int costoBase);
-
+    
+    public void activarMuro(double reduccion) {
+    	this.reduccionMuro = reduccion;
+    }
+    
     public void recibirDanio(int danioEntrante) {
         if (!estaEnPie() || danioEntrante <= 0) return;
 
         int danioFinal = calcularDanioRecibido(danioEntrante);
+        
+        danioFinal = (int)(danioFinal * (1 - reduccionMuro));
+        
         this.vidaActual = Math.max(0, this.vidaActual - danioFinal);
     }
 
@@ -57,6 +66,12 @@ public abstract class Combatiente {
     public void gastarEnergia(int costoBase) {
         int costoFinal = calcularGastoEnergia(costoBase);
         this.energiaActual = Math.max(0, this.energiaActual - costoFinal);
+    }
+    
+    public void perderEnergia(int cantidad) {
+    	if (cantidad > 0) {
+    		this.energiaActual = Math.max(0, this.energiaActual - cantidad);
+    	}
     }
 
     public void restablecerParaNuevoCombate() {
