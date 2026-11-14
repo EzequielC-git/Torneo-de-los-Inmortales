@@ -1,22 +1,22 @@
 package unlam.grupo_xi.tp2.equipamiento;
 
-public interface Equipamiento{
+public interface Equipamiento {
 	
-	public CategoriaEquipamiento getCategoria();
+	CategoriaEquipamiento getCategoria();
 	
-	public default int getBonusVidaMaxima(int vidaBase) {
-		return vidaBase;
+	default int getBonusVidaMaxima() {
+		return 0;
 	}
 	
-	public default int getBonusEnergiaMaxima(int energiaBase) {
-		return energiaBase;
+	default int getBonusEnergiaMaxima() {
+		return 0;
 	}
 	
-	public default int modificarDanioProducido(int dañoBase) {
-		return dañoBase;
+	default int modificarDanioProducido(int danioBase) {
+		return danioBase;
 	}
 	
-	public default int modificarDanioRecibido(int dañoBruto) {
-		return dañoBruto;
+	default int modificarDanioRecibido(int danioBruto) {
+		return danioBruto;
 	}
 }

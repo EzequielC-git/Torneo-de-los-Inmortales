@@ -1,9 +1,9 @@
 package unlam.grupo_xi.tp2.equipamiento;
 
-public class AnilloEspiritual implements Equipamiento{
+public class AnilloEspiritual implements Equipamiento {
 
-	final int BONUS_ENERGIA = 20;
-	final CategoriaEquipamiento categoria = CategoriaEquipamiento.ANILLO;
+	public static final int BONUS_ENERGIA = 20;
+	private final CategoriaEquipamiento categoria = CategoriaEquipamiento.ANILLO;
 	
 	@Override
 	public CategoriaEquipamiento getCategoria() {
@@ -11,7 +11,7 @@ public class AnilloEspiritual implements Equipamiento{
 	}
 	
 	@Override
-	public int getBonusEnergiaMaxima(int energiaBase) {
-		return energiaBase + BONUS_ENERGIA;
+	public int getBonusEnergiaMaxima() {
+		return BONUS_ENERGIA;
 	}
 }

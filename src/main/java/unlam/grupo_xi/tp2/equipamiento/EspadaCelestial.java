@@ -1,9 +1,9 @@
 package unlam.grupo_xi.tp2.equipamiento;
 
-public class EspadaCelestial implements Equipamiento{
+public class EspadaCelestial implements Equipamiento {
 
-	final int BONUS_DANIO = 10;
-	final CategoriaEquipamiento categoria = CategoriaEquipamiento.ARMA;
+	public static final int BONUS_DANIO = 10;
+	private final CategoriaEquipamiento categoria = CategoriaEquipamiento.ARMA;
 	
 	@Override
 	public CategoriaEquipamiento getCategoria() {
@@ -11,8 +11,7 @@ public class EspadaCelestial implements Equipamiento{
 	}
 	
 	@Override
-	public int modificarDanioProducido(int dañoBase) {
-		return dañoBase + BONUS_DANIO;
+	public int modificarDanioProducido(int danioBase) {
+		return danioBase + BONUS_DANIO;
 	}
-	
 }

@@ -136,11 +136,17 @@ public abstract class Combatiente {
         return true;
     }
 
+    public boolean desequipar(Equipamiento item) {
+        if (item == null) return false;
+        return desequipar(item.getCategoria());
+    }
+
     private void recalcularMaximos() {
         int bonusVida = 0, bonusEnergia = 0;
 
         for (Equipamiento eq : equipamientos.values()) {
-            // to-do: modificadores
+            bonusVida += eq.getBonusVidaMaxima();
+            bonusEnergia += eq.getBonusEnergiaMaxima();
         }
 
         this.vidaMaxima = VIDA_BASE + bonusVida;
@@ -150,7 +156,7 @@ public abstract class Combatiente {
     protected int getBonusDanioEquipamiento() {
         int total = 0;
         for (Equipamiento eq : equipamientos.values()) {
-            // to-do: modificadores
+            total += eq.modificarDanioProducido(0);
         }
         return total;
     }
@@ -158,7 +164,7 @@ public abstract class Combatiente {
     protected int getReduccionDanioEquipamiento() {
         int total = 0;
         for (Equipamiento eq : equipamientos.values()) {
-            // to-do: modificadores
+            total += (100 - eq.modificarDanioRecibido(100));
         }
         return total;
     }

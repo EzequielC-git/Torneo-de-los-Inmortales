@@ -1,9 +1,9 @@
 package unlam.grupo_xi.tp2.equipamiento;
 
-public class SelloDelFenix implements Equipamiento{
+public class SelloDelFenix implements Equipamiento {
 	
-	final int BONUS_VIDA = 30;
-	final CategoriaEquipamiento categoria = CategoriaEquipamiento.SELLO;
+	public static final int BONUS_VIDA = 30;
+	private final CategoriaEquipamiento categoria = CategoriaEquipamiento.SELLO;
 	
 	@Override
 	public CategoriaEquipamiento getCategoria() {
@@ -11,7 +11,7 @@ public class SelloDelFenix implements Equipamiento{
 	}
 	
 	@Override
-	public int getBonusVidaMaxima(int vidaBase) {
-		return vidaBase+BONUS_VIDA;
+	public int getBonusVidaMaxima() {
+		return BONUS_VIDA;
 	}
 }
