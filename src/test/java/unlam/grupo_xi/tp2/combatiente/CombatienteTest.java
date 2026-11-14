@@ -3,6 +3,7 @@ package unlam.grupo_xi.tp2.combatiente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import unlam.grupo_xi.tp2.TorneoDeLosInmortales;
+import unlam.grupo_xi.tp2.tecnica.CorteDeLosMilAmaneceres;
 import unlam.grupo_xi.tp2.tecnica.Tecnica;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -111,7 +112,7 @@ public class CombatienteTest {
     @Test
     public void tecnicaIniciaConCincoUsosYSeAgotaAlConsumirlos() {
         Combatiente cultivador = new CultivadorDeLaEspada(1, "Aurelio");
-        Tecnica tecnica = new Tecnica();
+        Tecnica tecnica = new CorteDeLosMilAmaneceres();
 
         cultivador.agregarTecnica(tecnica);
 

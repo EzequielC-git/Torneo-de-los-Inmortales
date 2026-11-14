@@ -1,12 +1,10 @@
 package unlam.grupo_xi.tp2.combatiente;
 
-import lombok.Getter;
 import unlam.grupo_xi.tp2.equipamiento.CategoriaEquipamiento;
 import unlam.grupo_xi.tp2.equipamiento.Equipamiento;
 import unlam.grupo_xi.tp2.tecnica.Tecnica;
 import java.util.*;
 
-@Getter
 public abstract class Combatiente {
     protected static final int VIDA_BASE = 100;
     protected static final int ENERGIA_BASE = 40;
@@ -81,6 +79,30 @@ public abstract class Combatiente {
 
     public boolean estaEnPie() {
         return this.vidaActual > 0;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public int getVidaActual() {
+        return this.vidaActual;
+    }
+
+    public int getVidaMaxima() {
+        return this.vidaMaxima;
+    }
+
+    public int getEnergiaActual() {
+        return this.energiaActual;
+    }
+
+    public int getEnergiaMaxima() {
+        return this.energiaMaxima;
     }
 
 
