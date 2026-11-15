@@ -31,11 +31,6 @@ public class Pareja {
         this.tecnicaUsadaPor = new HashMap<>();
     }
 
-
-    public int getIdentificador() {
-        return this.id;
-    }
-
     public int getId() {
         return this.id;
     }
