@@ -170,6 +170,6 @@ public class CombateTest {
         Pareja ganadora2 = combate2.ejecutarCombate();
 
         // Mismo campeón e idéntico resultado
-        assertEquals(ganadora1.getIdentificador(), ganadora2.getIdentificador());
+        assertEquals(ganadora1.getId(), ganadora2.getId());
     }
 }
