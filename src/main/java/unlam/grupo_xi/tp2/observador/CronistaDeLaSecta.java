@@ -6,7 +6,7 @@ public class CronistaDeLaSecta implements ObservadorTorneo{
 
 	private final List<Acontecimiento> historialEventos;
 	
-	CronistaDeLaSecta(){
+	public CronistaDeLaSecta(){
 		this.historialEventos = new ArrayList<>();
 	}
 
