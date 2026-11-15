@@ -1,7 +1,8 @@
 package unlam.grupo_xi.tp2.combate;
 
 import unlam.grupo_xi.tp2.combatiente.Combatiente;
-import unlam.grupo_xi.tp2.observador.Acontecimiento;
+import unlam.grupo_xi.tp2.observador.*;
+//import unlam.grupo_xi.tp2.observador.AcontecimientoBasico;
 import unlam.grupo_xi.tp2.observador.ObservadorTorneo;
 import unlam.grupo_xi.tp2.observador.TipoAcontecimiento;
 import unlam.grupo_xi.tp2.pareja.Pareja;
@@ -93,14 +94,14 @@ public class Combate {
     public Pareja ejecutarCombate() {
         prepararCombatientesParaNuevoCombate();
 
-        notificarAcontecimiento(new Acontecimiento(
+        notificarAcontecimiento(new AcontecimientoBasico(
                 TipoAcontecimiento.INICIO_COMBATE,
                 "Comienza el combate de Ronda " + ronda + " entre " + pareja1 + " y " + pareja2,
                 ronda
         ));
 
         // Empieza la pareja de menor identificador
-        Pareja primera = (pareja1.getIdentificador() < pareja2.getIdentificador()) ? pareja1 : pareja2;
+        Pareja primera = (pareja1.getId() < pareja2.getId()) ? pareja1 : pareja2;
         Pareja segunda = (primera == pareja1) ? pareja2 : pareja1;
 
         for (asaltoActual = 1; asaltoActual <= asaltosMaximos; asaltoActual++) {
@@ -123,8 +124,7 @@ public class Combate {
         Pareja ganadora = determinarParejaGanadora(primera, segunda);
         Pareja perdedora = ganadora.equals(pareja1) ? pareja2 : pareja1;
 
-        notificarAcontecimiento(new Acontecimiento(
-                TipoAcontecimiento.RESULTADO_COMBATE,
+        notificarAcontecimiento(new AcontecimientoResultado(
                 "Fin del combate en asalto " + Math.min(asaltoActual, asaltosMaximos) + ". Ganadora: " + ganadora
                         + " con vida total " + ganadora.getVidaTotal() + " vs " + perdedora + " con vida " + perdedora.getVidaTotal(),
                 ronda,
@@ -199,35 +199,37 @@ public class Combate {
             parejaEjecutor.registrarUsoTecnica(tecnicaElegida, ejecutor);
             tecnicaElegida.ejecutar(ejecutor, objetivoFinal);
 
-            notificarAcontecimiento(new Acontecimiento(
-                    TipoAcontecimiento.ACCION_REALIZADA,
+            notificarAcontecimiento(new AcontecimientoAccion(
                     ejecutor.getNombre() + " (ID: " + ejecutor.getId() + ") ejecutó " + tecnicaElegida.getNombre()
                             + " sobre " + objetivoFinal.getNombre() + " (ID: " + objetivoFinal.getId() + ")",
-                    ronda
+                    ronda,
+                    ejecutor,
+                    objetivoFinal
             ));
 
             if (objetivoFinal != ejecutor && !objetivoFinal.estaEnPie()) {
-                notificarAcontecimiento(new Acontecimiento(
-                        TipoAcontecimiento.ELIMINACION,
+                notificarAcontecimiento(new AcontecimientoEliminacion(
                         objetivoFinal.getNombre() + " (ID: " + objetivoFinal.getId() + ") ha quedado fuera de combate.",
-                        ronda
+                        ronda,
+                        objetivoFinal
                 ));
             }
         } else {
             ejecutor.realizarAtaqueBasico(objetivoOfensivo);
 
-            notificarAcontecimiento(new Acontecimiento(
-                    TipoAcontecimiento.ACCION_REALIZADA,
+            notificarAcontecimiento(new AcontecimientoAccion(
                     ejecutor.getNombre() + " (ID: " + ejecutor.getId() + ") realizó un ataque básico sobre "
                             + objetivoOfensivo.getNombre() + " (ID: " + objetivoOfensivo.getId() + ")",
-                    ronda
+                    ronda,
+                    ejecutor,
+                    objetivoOfensivo
             ));
 
             if (!objetivoOfensivo.estaEnPie()) {
-                notificarAcontecimiento(new Acontecimiento(
-                        TipoAcontecimiento.ELIMINACION,
+                notificarAcontecimiento(new AcontecimientoEliminacion(
                         objetivoOfensivo.getNombre() + " (ID: " + objetivoOfensivo.getId() + ") ha quedado fuera de combate.",
-                        ronda
+                        ronda,
+                        objetivoOfensivo
                 ));
             }
         }
@@ -253,11 +255,11 @@ public class Combate {
 
         if (vida1 > vida2) {
             return pareja1;
-        } else if (vida2 > vida1) {
+        } else if (vida2 > vida1) {	
             return pareja2;
         }
 
         // Empate en vida total: desempate por menor identificador
-        return (pareja1.getIdentificador() < pareja2.getIdentificador()) ? pareja1 : pareja2;
+        return (pareja1.getId() < pareja2.getId()) ? pareja1 : pareja2;
     }
 }
