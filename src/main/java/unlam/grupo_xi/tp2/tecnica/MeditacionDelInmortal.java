@@ -25,4 +25,15 @@ public class MeditacionDelInmortal implements Tecnica{
 	public void ejecutar(Combatiente ejecutor, Combatiente objetivo) {
 		ejecutor.recuperarVida(VIDA_RECUPERADA);
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		return o instanceof MeditacionDelInmortal;
+	}
+
+	@Override
+	public int hashCode() {
+		return getNombre().hashCode();
+	}
 }

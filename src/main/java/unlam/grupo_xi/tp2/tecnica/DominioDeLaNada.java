@@ -22,4 +22,15 @@ public class DominioDeLaNada implements Tecnica{
 		objetivo.recibirDanio(ejecutor.calcularDanioProducido(DANIO_BASE));
 		objetivo.perderEnergia(ENERGIA_QUITADA);
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		return o instanceof DominioDeLaNada;
+	}
+
+	@Override
+	public int hashCode() {
+		return getNombre().hashCode();
+	}
 }

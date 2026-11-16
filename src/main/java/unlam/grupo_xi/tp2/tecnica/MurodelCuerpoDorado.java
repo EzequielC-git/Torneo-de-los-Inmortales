@@ -25,4 +25,15 @@ public class MurodelCuerpoDorado implements Tecnica{
 	public void ejecutar(Combatiente ejecutor, Combatiente objetivo) {
 		ejecutor.activarMuro(REDUCCION_DANIO);
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		return o instanceof MurodelCuerpoDorado;
+	}
+
+	@Override
+	public int hashCode() {
+		return getNombre().hashCode();
+	}
 }

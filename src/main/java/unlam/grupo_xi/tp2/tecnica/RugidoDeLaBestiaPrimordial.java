@@ -20,4 +20,15 @@ public class RugidoDeLaBestiaPrimordial implements Tecnica{
 	public void ejecutar(Combatiente ejecutor, Combatiente objetivo) {
 		objetivo.recibirDanio(ejecutor.calcularDanioProducido(DANIO_BASE));		
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		return o instanceof RugidoDeLaBestiaPrimordial;
+	}
+
+	@Override
+	public int hashCode() {
+		return getNombre().hashCode();
+	}
 }
