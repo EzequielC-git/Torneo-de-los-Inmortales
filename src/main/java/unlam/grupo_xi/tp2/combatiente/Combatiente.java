@@ -4,6 +4,8 @@ import unlam.grupo_xi.tp2.equipamiento.CategoriaEquipamiento;
 import unlam.grupo_xi.tp2.equipamiento.Equipamiento;
 import unlam.grupo_xi.tp2.pareja.Pareja;
 import unlam.grupo_xi.tp2.tecnica.Tecnica;
+import unlam.grupo_xi.tp2.comportamiento.ComportamientoReactivo;
+import unlam.grupo_xi.tp2.comportamiento.DefensaPorAgotamiento;
 import java.util.*;
 
 public abstract class Combatiente {
@@ -19,6 +21,8 @@ public abstract class Combatiente {
     private int energiaMaxima, energiaActual;
     
     private double reduccionMuro;
+    
+    private final ComportamientoReactivo comportamientoReactivo	= new DefensaPorAgotamiento();
 
     private final Map<CategoriaEquipamiento, Equipamiento> equipamientos;
     private final Map<Tecnica, Integer> usosTecnicas;
@@ -47,6 +51,8 @@ public abstract class Combatiente {
 
         int danioFinal = calcularDanioRecibido(danioEntrante);
         
+        danioFinal = comportamientoReactivo.modificarDanioRecibido(danioFinal);
+        
         danioFinal = (int)(danioFinal * (1 - reduccionMuro));
         
         this.vidaActual = Math.max(0, this.vidaActual - danioFinal);
@@ -63,19 +69,29 @@ public abstract class Combatiente {
     }
 
     public void gastarEnergia(int costoBase) {
+    	int energiaAnterior = this.energiaActual;
         int costoFinal = calcularGastoEnergia(costoBase);
+        
         this.energiaActual = Math.max(0, this.energiaActual - costoFinal);
+        
+        comportamientoReactivo.actualizarEnergia(energiaAnterior, this.energiaActual);
     }
     
     public void perderEnergia(int cantidad) {
+    	int energiaAnterior = this.energiaActual;
+    	
     	if (cantidad > 0) {
     		this.energiaActual = Math.max(0, this.energiaActual - cantidad);
     	}
+    	
+    	comportamientoReactivo.actualizarEnergia(energiaAnterior, this.energiaActual);
     }
 
     public void restablecerParaNuevoCombate() {
         this.vidaActual = this.vidaMaxima;
         this.energiaActual = this.energiaMaxima;
+        
+        comportamientoReactivo.reiniciar();
     }
 
     public boolean estaEnPie() {
