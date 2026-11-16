@@ -35,7 +35,7 @@ public abstract class Combatiente {
         this.energiaMaxima = ENERGIA_BASE;
         this.energiaActual = ENERGIA_BASE;
         this.equipamientos = new HashMap<>();
-        this.usosTecnicas = new HashMap<>();
+        this.usosTecnicas = new LinkedHashMap<>();
     }
 
     public abstract int calcularDanioProducido(int danioBase);

@@ -9,9 +9,9 @@ public class OrdenarResultados implements Comparator<AcontecimientoResultado>{
 		Integer difRondas = o2.getRonda() - o1.getRonda();
 		
 		if(difRondas == 0){
-			Integer difVidas = o2.getVidaTotalGanadora() - o1.getVidaTotalGanadora();
+			Integer difVidas = o2.getVidaTotalPerdedora() - o1.getVidaTotalPerdedora();
 			if(difVidas == 0) {
-				return o1.getParejaGanadora().getId() - o2.getParejaGanadora().getId();
+				return o1.getParejaPerdedora().getId() - o2.getParejaPerdedora().getId();
 			}else
 				return difVidas;
 		}

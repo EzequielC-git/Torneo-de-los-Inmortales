@@ -179,6 +179,35 @@ public class TorneoTest {
         assertEquals(r.get(r.size() - 1).getParejaGanadora(), campeona);
     }
 
+    @Test
+    public void laTablaDePosicionesQuedaOrdenadaPorUltimaRondaJugadaYVidaTotalFinal() {
+        CronistaDeLaSecta cronista = new CronistaDeLaSecta();
+        List<Pareja> inscriptas = nuevasParejas(4);
+        Torneo torneo = torneoCon(inscriptas, cronista);
+        Pareja campeona = torneo.iniciar();
+
+        List<Pareja> tabla = cronista.generarTablaPosiciones();
+        List<AcontecimientoResultado> r = resultados(cronista);
+        AcontecimientoResultado finalTorneo = r.get(2);
+
+        assertEquals(4, tabla.size());
+        assertEquals(campeona, tabla.get(0));
+        assertEquals(finalTorneo.getParejaPerdedora(), tabla.get(1));
+
+        // Las posiciones 3 y 4 corresponden a las perdedoras de ronda 1, ordenadas por su vida final y luego por ID
+        AcontecimientoResultado semi1 = r.get(0);
+        AcontecimientoResultado semi2 = r.get(1);
+        if (semi1.getVidaTotalPerdedora() > semi2.getVidaTotalPerdedora()
+                || (semi1.getVidaTotalPerdedora() == semi2.getVidaTotalPerdedora()
+                && semi1.getParejaPerdedora().getId() < semi2.getParejaPerdedora().getId())) {
+            assertEquals(semi1.getParejaPerdedora(), tabla.get(2));
+            assertEquals(semi2.getParejaPerdedora(), tabla.get(3));
+        } else {
+            assertEquals(semi2.getParejaPerdedora(), tabla.get(2));
+            assertEquals(semi1.getParejaPerdedora(), tabla.get(3));
+        }
+    }
+
 
     @Test
     public void dosTorneosArmadosIgualProducenElMismoCampeonYElMismoHistorial() {
