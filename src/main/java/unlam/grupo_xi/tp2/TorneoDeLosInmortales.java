@@ -20,7 +20,6 @@ import unlam.grupo_xi.tp2.torneo.Torneo;
 import java.util.List;
 
 public final class TorneoDeLosInmortales {
-    public static int SIGUIENTE_ID = 1;
 
     public static void main(String[] args) {
 

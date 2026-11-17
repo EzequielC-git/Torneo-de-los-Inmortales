@@ -1,6 +1,5 @@
 package unlam.grupo_xi.tp2.combatiente;
 
-import unlam.grupo_xi.tp2.TorneoDeLosInmortales;
 import unlam.grupo_xi.tp2.escuela.Escuela;
 
 public class CreadorCombatientes {
@@ -25,8 +24,7 @@ public class CreadorCombatientes {
 
     public Combatiente crear(CategoriaCombatiente tipo, String nombre, Escuela escuela) {
         int idAsignado = this.proximoId++;
-        // Mantener sincronizada la variable estática si algún test la resetea
-        TorneoDeLosInmortales.SIGUIENTE_ID = this.proximoId;
+        
 
         Combatiente combatiente = instanciarPorTipo(tipo, idAsignado, nombre);
 

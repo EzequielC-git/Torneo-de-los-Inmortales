@@ -1,18 +1,13 @@
 package unlam.grupo_xi.tp2.combatiente;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import unlam.grupo_xi.tp2.TorneoDeLosInmortales;
 import unlam.grupo_xi.tp2.tecnica.CorteDeLosMilAmaneceres;
 import unlam.grupo_xi.tp2.tecnica.Tecnica;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CombatienteTest {
 
-    @BeforeEach
-    public void setUp() {
-        TorneoDeLosInmortales.SIGUIENTE_ID = 1;
-    }
+
 
     // Verifica que Cultivador de la Espada potencie el daño base (20% adicional)
     @Test
