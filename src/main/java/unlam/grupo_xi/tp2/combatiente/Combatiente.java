@@ -90,6 +90,7 @@ public abstract class Combatiente {
     public void restablecerParaNuevoCombate() {
         this.vidaActual = this.vidaMaxima;
         this.energiaActual = this.energiaMaxima;
+        this.reduccionMuro = 0;
         
         comportamientoReactivo.reiniciar();
     }

@@ -2,9 +2,6 @@ package unlam.grupo_xi.tp2.combate;
 
 import unlam.grupo_xi.tp2.combatiente.Combatiente;
 import unlam.grupo_xi.tp2.observador.*;
-//import unlam.grupo_xi.tp2.observador.AcontecimientoBasico;
-import unlam.grupo_xi.tp2.observador.ObservadorTorneo;
-import unlam.grupo_xi.tp2.observador.TipoAcontecimiento;
 import unlam.grupo_xi.tp2.pareja.Pareja;
 import unlam.grupo_xi.tp2.tecnica.Tecnica;
 
