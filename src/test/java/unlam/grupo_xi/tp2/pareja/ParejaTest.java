@@ -33,7 +33,6 @@ public class ParejaTest {
     @Test
     public void crearParejaAsignaCorrectamenteIdentificadorEIntegrantes() {
         assertEquals(1, pareja.getId());
-        assertEquals(1, pareja.getId());
         assertEquals(combatiente1, pareja.getIntegrante1());
         assertEquals(combatiente2, pareja.getIntegrante2());
         assertTrue(pareja.contiene(combatiente1));
