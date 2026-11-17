@@ -9,11 +9,10 @@ public class CreadorCombatientes {
         this.proximoId = 1;
     }
 
-    //Creación centralizada a partir del nombre del tipo de combatiente (según UML y ejemplo de main).
+    // Creación centralizada a partir del nombre del tipo de combatiente (según UML y ejemplo de main).
     public Combatiente crear(String tipo, String nombre, Escuela escuela) {
-        if (tipo == null || tipo.trim().isEmpty()) {
+        if (tipo == null || tipo.trim().isEmpty())
             throw new IllegalArgumentException("El tipo de combatiente no puede ser nulo o vacío.");
-        }
 
         CategoriaCombatiente categoria = parsearTipo(tipo);
         return crear(categoria, nombre, escuela);
@@ -21,19 +20,17 @@ public class CreadorCombatientes {
 
 
     // Sobrecarga para crear a partir del enum CategoriaCombatiente.
-
     public Combatiente crear(CategoriaCombatiente tipo, String nombre, Escuela escuela) {
         int idAsignado = this.proximoId++;
-        
 
         Combatiente combatiente = instanciarPorTipo(tipo, idAsignado, nombre);
 
-        if (escuela != null && escuela.getTecnicasIniciales() != null) {
-            escuela.getTecnicasIniciales().forEach(combatiente::agregarTecnica);
-        }
+        if (escuela != null) {
+            if (escuela.getTecnicasIniciales() != null)
+                escuela.getTecnicasIniciales().forEach(combatiente::agregarTecnica);
 
-        if (escuela != null && escuela.getEquipamientosIniciales() != null) {
-            escuela.getEquipamientosIniciales().forEach(combatiente::equipar);
+            if (escuela.getEquipamientosIniciales() != null)
+                escuela.getEquipamientosIniciales().forEach(combatiente::equipar);
         }
 
         return combatiente;

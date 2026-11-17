@@ -230,11 +230,7 @@ public abstract class Combatiente {
     public void reiniciarDefensa() {
         this.reduccionMuro = 0;
     }
-
-    public void recuperarEnergiaPorAsalto(int energia) {
-        recuperarEnergia(energia);
-    }
-
+    
     public Combatiente elegirObjetivo(List<Combatiente> rivales) {
         if (rivales == null || rivales.isEmpty()) {
             return null;

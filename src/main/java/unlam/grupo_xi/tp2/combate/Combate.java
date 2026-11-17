@@ -152,10 +152,10 @@ public class Combate {
 
     private void recuperarEnergiaAlComienzoDelAsalto() {
         for (Combatiente c : pareja1.getIntegrantesEnPie()) {
-            c.recuperarEnergiaPorAsalto(energiaPorAsalto);
+            c.recuperarEnergia(energiaPorAsalto);
         }
         for (Combatiente c : pareja2.getIntegrantesEnPie()) {
-            c.recuperarEnergiaPorAsalto(energiaPorAsalto);
+            c.recuperarEnergia(energiaPorAsalto);
         }
     }
 
