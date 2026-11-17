@@ -11,7 +11,7 @@ public class ArmaduraDorada implements Equipamiento {
 	}
 
 	@Override
-	public int modificarDanioRecibido(int danioBruto) {
-		return Math.max(0, danioBruto - REDUCCION_DANIO);
+	public int getBonusDanioReducido() {
+		return REDUCCION_DANIO;
 	}
 }

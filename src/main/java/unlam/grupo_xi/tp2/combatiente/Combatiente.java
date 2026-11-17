@@ -171,17 +171,15 @@ public abstract class Combatiente {
 
     protected int getBonusDanioEquipamiento() {
         int total = 0;
-        for (Equipamiento eq : equipamientos.values()) {
-            total += eq.modificarDanioProducido(0);
-        }
+        for (Equipamiento eq : equipamientos.values())
+            total += eq.getBonusDanioProducido();
         return total;
     }
 
     protected int getReduccionDanioEquipamiento() {
         int total = 0;
-        for (Equipamiento eq : equipamientos.values()) {
-            total += (100 - eq.modificarDanioRecibido(100));
-        }
+        for (Equipamiento eq : equipamientos.values())
+            total += eq.getBonusDanioReducido();
         return total;
     }
 

@@ -9,9 +9,9 @@ public class EspadaCelestial implements Equipamiento {
 	public CategoriaEquipamiento getCategoria() {
 		return categoria;
 	}
-	
+
 	@Override
-	public int modificarDanioProducido(int danioBase) {
-		return danioBase + BONUS_DANIO;
+	public int getBonusDanioProducido() {
+		return BONUS_DANIO;
 	}
 }
